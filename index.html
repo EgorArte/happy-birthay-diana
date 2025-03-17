@@ -92,6 +92,10 @@
             justify-content: center;
         }
 
+        .canvas-area * {
+            margin-left: -172px;
+        }
+
         .photo-container {
             width: 300px;
             height: 300px;
@@ -114,6 +118,10 @@
             color: #ff206e;
             text-shadow: 3px 3px 0 #2d2d2d;
             line-height: 1.2;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .subtitle {
@@ -195,13 +203,14 @@
 
         .right-panel {
             position: fixed;
-            right: 0;
+            right: 0px;
             top: 48px;
             bottom: 0;
             width: 240px;
             background: #2d2d2d;
             border-left: 1px solid #404040;
             padding: 16px;
+            z-index: 10000;
         }
 
         .panel-title {
@@ -235,9 +244,6 @@
             background: #404040;
         }
 
-        .canvas-area {
-            right: 240px;
-        }
         * {
             margin: 0;
             padding: 0;
@@ -282,28 +288,8 @@
             border-radius: 8px;
         }
 
-        .canvas-area {
-            position: fixed;
-            left: 72px;
-            top: 48px;
-            right: 0;
-            bottom: 0;
-            background: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
         .birthday-text {
-            font-family: 'Bungee Shade', cursive;
-            font-size: 4rem;
-            text-align: center;
-            color: #ff206e;
-            text-shadow: 3px 3px 0 #2d2d2d;
-            line-height: 1.2;
-            cursor: pointer;
-            transition: transform 0.2s ease;
+            
         }
 
         .birthday-text:active {
@@ -350,10 +336,68 @@
         @media screen and (max-width: 700px) {
           .birthday-text {
             font-size: 3rem;
-          }          
+          }      
+          .right-panel {
+            display: none;
+          }    
         }
-    </style>
 
+      .birthday-text:hover {
+        animation: textPop 0.5s ease;
+        color: #ff0099;
+        text-shadow: 5px 5px 0 #2d2d2d,
+                    0 0 20px rgba(255, 0, 153, 0.5);
+      }
+
+      .birthday-text:hover::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 120%;
+        
+        pointer-events: none;
+        animation: shadowPulse 1s infinite;
+      }
+
+      .subtitle:hover {
+        animation: floatUp 0.8s ease;
+        color: #ff206e;
+      }
+
+      @keyframes textPop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes shadowPulse {
+        0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+        50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+      }
+
+      @keyframes floatUp {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
+      }
+      .birthday-text span {
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .birthday-text:hover span {
+        animation: letterBounce 0.6s ease;
+      }
+
+      @keyframes letterBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px) rotate(-5deg); }
+      }
+    </style>
 </head>
 <body>
     <div class="figma-header">
@@ -390,7 +434,6 @@
             </div>
         </div>
     </div>
-    
     <div class="left-panel">
         <div class="tool-icon selected">
             <svg viewBox="0 0 24 24">
@@ -450,81 +493,7 @@
           document.body.appendChild(flower);
       }
     </script>
-    <style>
-      .birthday-text {
-        transition: all 0.3s ease;
-        position: relative;
-      }
-
-      .birthday-text:hover {
-        animation: textPop 0.5s ease;
-        color: #ff0099;
-        text-shadow: 5px 5px 0 #2d2d2d,
-                    0 0 20px rgba(255, 0, 153, 0.5);
-      }
-
-      .birthday-text:hover::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 120%;
-        height: 120%;
-        
-        pointer-events: none;
-        animation: shadowPulse 1s infinite;
-      }
-
-      .subtitle:hover {
-        animation: floatUp 0.8s ease;
-        color: #ff206e;
-      }
-
-      @keyframes textPop {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-      }
-
-      @keyframes shadowPulse {
-        0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
-        50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
-      }
-
-      @keyframes floatUp {
-        0% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-        100% { transform: translateY(0); }
-      }
-
-      /* Letter stagger animation */
-      .birthday-text span {
-        display: inline-block;
-        transition: all 0.3s ease;
-      }
-
-      .birthday-text:hover span {
-        animation: letterBounce 0.6s ease;
-      }
-
-      @keyframes letterBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px) rotate(-5deg); }
-      }
-    </style>
-
-    <!-- Modify your text elements in the HTML -->
-    <div class="canvas-area">
-      <div class="photo-container"></div>
-      <h1 class="birthday-text" id="mainText">happee birthdae</h1>
-      <h2 class="birthday-text subtitle" id="nameText">diana</h2>
-    </div>
-
-    <!-- Add this script at the end of your existing script -->
     <script>
-      // Split text into spans for letter-by-letter animation
       function setupTextAnimation(element) {
         const text = element.innerText;
         element.innerHTML = text.split('').map((char, i) => 
@@ -535,45 +504,45 @@
       setupTextAnimation(document.getElementById('mainText'));
       setupTextAnimation(document.getElementById('nameText'));
     </script>
+    <script>
+    let soundPlayed = false;
+    let flowerAnimationStarted = false;
+    const birthdayText = document.querySelector('body');
 
-<script>
-  let soundPlayed = false;
-  let flowerAnimationStarted = false; // To ensure flower animation starts only once
-  const birthdayText = document.querySelector('body');
+    birthdayText.addEventListener('click', () => {
+        if (!soundPlayed) {
+            let audio = new Audio('./files/hb.mp3');
+            audio.play();
+            soundPlayed = true;
+        }
 
-  birthdayText.addEventListener('click', () => {
-      if (!soundPlayed) {
-          let audio = new Audio('./files/hb.mp3'); // You can add a funny sound or voice clip
-          audio.play();
-          soundPlayed = true;
-      }
+        for (let i = 0; i < 30; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = `${Math.random() * 100}%`;
+            document.body.appendChild(confetti);
+            setTimeout(() => {
+                confetti.remove();
+            }, 1000);
+        }
 
-      // Confetti effect on click
-      for (let i = 0; i < 30; i++) {
-          const confetti = document.createElement('div');
-          confetti.classList.add('confetti');
-          confetti.style.left = `${Math.random() * 100}%`;
-          document.body.appendChild(confetti);
-          setTimeout(() => {
-              confetti.remove();
-          }, 1000);
-      }
-
-      // Start flower animation only once on first click
-      if (!flowerAnimationStarted) {
-          flowerAnimationStarted = true;
-          setInterval(() => {
-              const flower = document.createElement('div');
-              flower.classList.add('flower');
-              document.body.appendChild(flower);
-              flower.style.left = `${Math.random() * 100}%`;
-              flower.style.animationDuration = `${Math.random() * 3 + 3}s`;
-          }, 500);
-      }
-  });
-</script>
+        // Start flower animation only once on first click
+        if (!flowerAnimationStarted) {
+            flowerAnimationStarted = true;
+            setInterval(() => {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                document.body.appendChild(flower);
+                flower.style.left = `${Math.random() * 100}%`;
+                flower.style.animationDuration = `${Math.random() * 3 + 3}s`;
+            }, 500);
+        }
+    });
+    </script>
 
 
 </body>
 </html>
+
+
 
