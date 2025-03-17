@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Diana!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #f0f0f0;
+            width: 100vw;
+            margin: 0;
+        }
+
+        html {
+          width: 100vw;
+          overflow: hidden;
+        }
+
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/013/399/687/large_2x/pink-flower-pixel-style-free-png.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: -50px;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Figma-like interface styling */
+        .figma-header {
+            height: 48px;
+            background: #2d2d2d;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-family: Arial;
+            border-bottom: 1px solid #404040;
+            min-width: 100vw;
+            width: 100vw;
+            justify-content: space-between;
+            min-width: 100%;
+        }
+
+        .left-panel {
+            position: fixed;
+            left: 0;
+            top: 48px;
+            bottom: 0;
+            width: 72px;
+            background: #2d2d2d;
+            border-right: 1px solid #404040;
+            padding: 20px 0;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            background: #404040;
+            border-radius: 8px;
+        }
+
+        .canvas-area {
+            position: fixed;
+            left: 72px;
+            top: 48px;
+            right: 0;
+            bottom: 0;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-container {
+            width: 300px;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 4px solid #2d2d2d;
+            background: url('./files/photo.jpg') center/cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .photo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .birthday-text {
+            font-family: 'Bungee Shade', cursive;
+            font-size: 4rem;
+            text-align: center;
+            color: #ff206e;
+            text-shadow: 3px 3px 0 #2d2d2d;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Fredoka One';
+            font-size: 4rem;
+            color: #2d2d2d;
+            margin-top: 20px;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .figma-logo {
+            width: 34px;
+            height: 24px;
+
+        }
+
+        .menu-item {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #fff;
+            padding: 8px;
+            cursor: default;
+        }
+
+        .header-button {
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-button {
+            background: #0D99FF;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-icon {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            gap: 4px;
+        }
+
+        .tool-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #888;
+        }
+
+        .tool-icon.selected svg {
+            fill: #fff;
+        }
+
+        .tool-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            color: #888;
+        }
+
+        .tool-icon.selected .tool-label {
+            color: #fff;
+        }
+
+        .right-panel {
+            position: fixed;
+            right: 0;
+            top: 48px;
+            bottom: 0;
+            width: 240px;
+            background: #2d2d2d;
+            border-left: 1px solid #404040;
+            padding: 16px;
+        }
+
+        .panel-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .layer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .menu-item {
+          display: flex;
+            align-items: center;
+          padding: 0 10px;
+          border-radius: 4px;
+          height: 2rem;
+          text-align: center;
+          align-items: center;
+        }
+
+        .layer-item:hover, .menu-item:hover {
+            background: #404040;
+        }
+
+        .canvas-area {
+            right: 240px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/013/399/687/large_2x/pink-flower-pixel-style-free-png.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: -50px;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .left-panel {
+            position: fixed;
+            left: 0;
+            top: 48px;
+            bottom: 0;
+            width: 72px;
+            background: #2d2d2d;
+            border-right: 1px solid #404040;
+            padding: 20px 0;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            background: #404040;
+            border-radius: 8px;
+        }
+
+        .canvas-area {
+            position: fixed;
+            left: 72px;
+            top: 48px;
+            right: 0;
+            bottom: 0;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .birthday-text {
+            font-family: 'Bungee Shade', cursive;
+            font-size: 4rem;
+            text-align: center;
+            color: #ff206e;
+            text-shadow: 3px 3px 0 #2d2d2d;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .birthday-text:active {
+            transform: scale(1.2);
+        }
+
+        .subtitle {
+            font-family: 'Fredoka One';
+            font-size: 4rem;
+            color: #2d2d2d;
+            margin-top: 20px;
+        }
+
+        /* Confetti Animation */
+        @keyframes confetti {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: random;
+            animation: confetti 1s forwards;
+            opacity: 0;
+        }
+
+        .confetti:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: random;
+            border-radius: 50%;
+        }
+
+        @media screen and (max-width: 700px) {
+          .birthday-text {
+            font-size: 3rem;
+          }          
+        }
+    </style>
+
+</head>
+<body>
+    <div class="figma-header">
+        <div class="header-left">
+            <div class="figma-logo">
+                <?xml version="1.0" ?><svg id="Layer_1" style="enable-background:new 0 0 3000 3000;" version="1.1" viewBox="0 0 3000 3000" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+                    .st0{fill:#0ACF83;}
+                    .st1{fill:#A259FF;}
+                    .st2{fill:#F24E1E;}
+                    .st3{fill:#FF7262;}
+                    .st4{fill:#1ABCFE;}
+                </style><title/><desc/><path class="st0" d="M1083.333374,2750c230,0,416.666626-186.666748,416.666626-416.666748v-416.666626h-416.666626  c-230.000061,0-416.666687,186.666626-416.666687,416.666626S853.333313,2750,1083.333374,2750z" id="path0_fill"/><path class="st1" d="M666.666687,1500c0-230,186.666626-416.666748,416.666687-416.666748H1500v833.333374  h-416.666626C853.333313,1916.666626,666.666687,1730,666.666687,1500z" id="path1_fill"/><path class="st2" d="M666.666687,666.666626C666.666687,436.666656,853.333313,250,1083.333374,250H1500  v833.333252h-416.666626C853.333313,1083.333252,666.666687,896.666626,666.666687,666.666626z" id="path1_fill_1_"/><path class="st3" d="M1500,250h416.666626c230.000122,0,416.666626,186.666656,416.666626,416.666626  s-186.666504,416.666626-416.666626,416.666626H1500V250z" id="path2_fill"/><path class="st4" d="M2333.333252,1500c0,230-186.666504,416.666626-416.666626,416.666626S1500,1730,1500,1500  s186.666626-416.666748,416.666626-416.666748S2333.333252,1270,2333.333252,1500z" id="path3_fill"/></svg>
+            </div>
+            <span class="menu-item">File</span>
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">View</span>
+            <span class="menu-item">Object</span>
+        </div>
+        <div class="header-right">
+            
+            <div class="header-button">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="white" fill-rule="evenodd" d="m9.372 17.867 8.162-5.023a1 1 0 0 0 .002-1.702l-8.162-5.05A.9.9 0 0 0 8 6.857V17.1a.9.9 0 0 0 1.372.766m8.686-4.171a2 2 0 0 0 .004-3.404L9.9 5.242C8.634 4.457 7 5.368 7 6.856V17.1c0 1.486 1.63 2.397 2.896 1.618z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div class="share-button">
+              Share
+            </div>
+            <svg width="15" height="15" fill="#888" viewBox="0 0 16 16"><path fill="#888" fill-rule="evenodd" d="M10.475 6.768a.5.5 0 0 1 0 .707L8.354 9.596 8 9.95l-.354-.354-2.12-2.121a.5.5 0 0 1 .706-.707L8 8.536l1.768-1.768a.5.5 0 0 1 .707 0" clip-rule="evenodd"></path></svg>
+
+            <div class="profile-icon" style="
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: #ddd url('./files/profile.jpg') center/cover;">
+            </div>
+        </div>
+    </div>
+    
+    <div class="left-panel">
+        <div class="tool-icon selected">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 9l-8 8-8-8 1.414-1.414L12 14.172l6.586-6.586"/>
+            </svg>
+        </div>
+        <div class="tool-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                <path d="M13 7h-2v6h6v-2h-4z"/>
+            </svg>
+        </div>
+        <div class="tool-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+        </div>
+        <div class="tool-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="canvas-area">
+        <div class="photo-container"></div>
+        <h1 class="birthday-text">happee birthdae</h1>
+        <h2 class="birthday-text subtitle">diana</h2>
+    </div>
+
+    <div class="right-panel">
+        <div class="panel-title">Layers</div>
+        <div class="layer-item">
+          <svg width="16" height="16" fill="#888" viewBox="0 0 16 16"><path fill="#888" fill-rule="evenodd" d="M10.475 6.768a.5.5 0 0 1 0 .707L8.354 9.596 8 9.95l-.354-.354-2.12-2.121a.5.5 0 0 1 .706-.707L8 8.536l1.768-1.768a.5.5 0 0 1 .707 0" clip-rule="evenodd"></path></svg>
+            Birthday Text
+        </div>
+        <div class="layer-item">
+          <svg width="16" height="16" fill="#888" viewBox="0 0 16 16"><path fill="#888" fill-rule="evenodd" d="M10.475 6.768a.5.5 0 0 1 0 .707L8.354 9.596 8 9.95l-.354-.354-2.12-2.121a.5.5 0 0 1 .706-.707L8 8.536l1.768-1.768a.5.5 0 0 1 .707 0" clip-rule="evenodd"></path></svg>
+            Photo Frame
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener("click", (event) => {
+      createFlower(event.clientX, event.clientY);
+      });
+
+      function createFlower(x, y) {
+          const flower = document.createElement("img");
+          flower.src = "https://static.vecteezy.com/system/resources/previews/013/399/687/large_2x/pink-flower-pixel-style-free-png.png"; // Замените на нужное изображение
+          flower.style.position = "absolute";
+          flower.style.width = "50px";
+          flower.style.height = "50px";
+          flower.style.left = `${x - 25}px`;
+          flower.style.top = `${y - 25}px`;
+          flower.style.pointerEvents = "none";
+          document.body.appendChild(flower);
+      }
+    </script>
+    <style>
+      .birthday-text {
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .birthday-text:hover {
+        animation: textPop 0.5s ease;
+        color: #ff0099;
+        text-shadow: 5px 5px 0 #2d2d2d,
+                    0 0 20px rgba(255, 0, 153, 0.5);
+      }
+
+      .birthday-text:hover::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 120%;
+        
+        pointer-events: none;
+        animation: shadowPulse 1s infinite;
+      }
+
+      .subtitle:hover {
+        animation: floatUp 0.8s ease;
+        color: #ff206e;
+      }
+
+      @keyframes textPop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes shadowPulse {
+        0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+        50% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.8); }
+      }
+
+      @keyframes floatUp {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
+      }
+
+      /* Letter stagger animation */
+      .birthday-text span {
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .birthday-text:hover span {
+        animation: letterBounce 0.6s ease;
+      }
+
+      @keyframes letterBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px) rotate(-5deg); }
+      }
+    </style>
+
+    <!-- Modify your text elements in the HTML -->
+    <div class="canvas-area">
+      <div class="photo-container"></div>
+      <h1 class="birthday-text" id="mainText">happee birthdae</h1>
+      <h2 class="birthday-text subtitle" id="nameText">diana</h2>
+    </div>
+
+    <!-- Add this script at the end of your existing script -->
+    <script>
+      // Split text into spans for letter-by-letter animation
+      function setupTextAnimation(element) {
+        const text = element.innerText;
+        element.innerHTML = text.split('').map((char, i) => 
+          `<span style="animation-delay: ${i * 0.05}s">${char}</span>`
+        ).join('');
+      }
+
+      setupTextAnimation(document.getElementById('mainText'));
+      setupTextAnimation(document.getElementById('nameText'));
+    </script>
+
+<script>
+  let soundPlayed = false;
+  let flowerAnimationStarted = false; // To ensure flower animation starts only once
+  const birthdayText = document.querySelector('body');
+
+  birthdayText.addEventListener('click', () => {
+      if (!soundPlayed) {
+          let audio = new Audio('./files/hb.mp3'); // You can add a funny sound or voice clip
+          audio.play();
+          soundPlayed = true;
+      }
+
+      // Confetti effect on click
+      for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement('div');
+          confetti.classList.add('confetti');
+          confetti.style.left = `${Math.random() * 100}%`;
+          document.body.appendChild(confetti);
+          setTimeout(() => {
+              confetti.remove();
+          }, 1000);
+      }
+
+      // Start flower animation only once on first click
+      if (!flowerAnimationStarted) {
+          flowerAnimationStarted = true;
+          setInterval(() => {
+              const flower = document.createElement('div');
+              flower.classList.add('flower');
+              document.body.appendChild(flower);
+              flower.style.left = `${Math.random() * 100}%`;
+              flower.style.animationDuration = `${Math.random() * 3 + 3}s`;
+          }, 500);
+      }
+  });
+</script>
+
+
+</body>
+</html>
+
