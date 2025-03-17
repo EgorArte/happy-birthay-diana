@@ -98,19 +98,43 @@
         }
 
         .photo-container {
-            width: 300px;
-            height: 300px;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            border: 4px solid #2d2d2d;
-            background: url('./files/photo.jpg') center/cover;
-            transition: transform 0.3s ease-in-out;
-        }
+  position: relative; /* Establish positioning context */
+  width: 300px;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 4px solid #2d2d2d;
+  background: url('./files/photo.jpg') center/cover;
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
 
-        .photo-container:hover {
-            transform: scale(1.05);
-        }
+/* Set up .inside to cover the container but start hidden */
+.inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  opacity: 0;
+  margin: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* On hover, change the background of .photo-container */
+.photo-container:hover {
+  background: url('./files/space.gif') center/cover !important;
+  z-index: 1;
+  transform: scale(1.05);
+}
+
+/* Reveal the .inside element on hover with its own background */
+.photo-container:hover .inside {
+  background: url('./files/nobg.png') center/cover;
+  opacity: 1;
+  transform: scale(1.05);
+}
 
         .birthday-text {
             font-family: 'Bungee Shade', cursive;
@@ -462,11 +486,15 @@
             </svg>
         </div>
     </div>
+
     <div class="canvas-area">
-        <div class="photo-container"></div>
+        <div class="photo-container">
+          <div class="inside"></div>
+        </div>
         <h1 class="birthday-text">happee birthdae</h1>
         <h2 class="birthday-text subtitle">diana</h2>
-    </div>
+      </div>
+
     <div class="right-panel">
         <div class="panel-title">Layers</div>
         <div class="layer-item">
@@ -478,6 +506,7 @@
             Photo Frame
         </div>
     </div>
+
     <script>
       document.addEventListener("click", (event) => {
       createFlower(event.clientX, event.clientY);
@@ -502,6 +531,7 @@
           `<span style="animation-delay: ${i * 0.05}s">${char}</span>`
         ).join('');
       }
+
       setupTextAnimation(document.getElementById('mainText'));
       setupTextAnimation(document.getElementById('nameText'));
     </script>
@@ -527,6 +557,7 @@
             }, 1000);
         }
 
+        // Start flower animation only once on first click
         if (!flowerAnimationStarted) {
             flowerAnimationStarted = true;
             setInterval(() => {
@@ -541,8 +572,4 @@
     </script>
 </body>
 </html>
-
-
-
-
 
