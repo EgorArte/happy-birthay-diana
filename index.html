@@ -26,6 +26,7 @@
           overflow: hidden;
         }
 
+
         .flower {
             position: absolute;
             width: 50px;
@@ -37,6 +38,7 @@
             pointer-events: none;
             animation: fall linear infinite;
         }
+
         @keyframes fall {
             to {
                 transform: translateY(100vh);
@@ -44,7 +46,6 @@
             }
         }
 
-        /* Figma-like interface styling */
         .figma-header {
             height: 48px;
             background: #2d2d2d;
@@ -72,11 +73,13 @@
         }
 
         .tool-icon {
-            width: 40px;
-            height: 40px;
-            margin: 10px auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            gap: 4px;
             background: #404040;
-            border-radius: 8px;
         }
 
         .canvas-area {
@@ -172,15 +175,6 @@
             gap: 8px;
         }
 
-        .tool-icon {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px;
-            gap: 4px;
-        }
-
         .tool-icon svg {
             width: 24px;
             height: 24px;
@@ -244,54 +238,6 @@
             background: #404040;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .flower {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-image: url('https://static.vecteezy.com/system/resources/previews/013/399/687/large_2x/pink-flower-pixel-style-free-png.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            top: -50px;
-            pointer-events: none;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        .left-panel {
-            position: fixed;
-            left: 0;
-            top: 48px;
-            bottom: 0;
-            width: 72px;
-            background: #2d2d2d;
-            border-right: 1px solid #404040;
-            padding: 20px 0;
-        }
-
-        .tool-icon {
-            width: 40px;
-            height: 40px;
-            margin: 10px auto;
-            background: #404040;
-            border-radius: 8px;
-        }
-
-        .birthday-text {
-            
-        }
-
         .birthday-text:active {
             transform: scale(1.2);
         }
@@ -303,7 +249,6 @@
             margin-top: 20px;
         }
 
-        /* Confetti Animation */
         @keyframes confetti {
             0% {
                 transform: translateY(0);
@@ -339,7 +284,11 @@
           }      
           .right-panel {
             display: none;
-          }    
+          }
+
+          .canvas-area * {
+            margin-left: 0px;
+          }
         }
 
       .birthday-text:hover {
@@ -539,8 +488,6 @@
         }
     });
     </script>
-
-
 </body>
 </html>
 
