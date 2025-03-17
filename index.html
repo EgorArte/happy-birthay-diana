@@ -462,13 +462,11 @@
             </svg>
         </div>
     </div>
-
     <div class="canvas-area">
         <div class="photo-container"></div>
         <h1 class="birthday-text">happee birthdae</h1>
         <h2 class="birthday-text subtitle">diana</h2>
     </div>
-
     <div class="right-panel">
         <div class="panel-title">Layers</div>
         <div class="layer-item">
@@ -480,7 +478,6 @@
             Photo Frame
         </div>
     </div>
-
     <script>
       document.addEventListener("click", (event) => {
       createFlower(event.clientX, event.clientY);
@@ -505,7 +502,6 @@
           `<span style="animation-delay: ${i * 0.05}s">${char}</span>`
         ).join('');
       }
-
       setupTextAnimation(document.getElementById('mainText'));
       setupTextAnimation(document.getElementById('nameText'));
     </script>
@@ -531,7 +527,6 @@
             }, 1000);
         }
 
-        // Start flower animation only once on first click
         if (!flowerAnimationStarted) {
             flowerAnimationStarted = true;
             setInterval(() => {
@@ -544,8 +539,6 @@
         }
     });
     </script>
-
-
 </body>
 </html>
 
